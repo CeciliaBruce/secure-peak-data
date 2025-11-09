@@ -170,8 +170,30 @@ export const useSecurePeakData = (parameters: {
       }
 
       if (sameChain.current(thisChainId)) {
-        setRecords(newRecords);
-        setGraphData(newGraphData);
+        // Preserve decrypted state from existing records
+        setRecords((prevRecords) => {
+          const decryptedMap = new Map(
+            prevRecords
+              .filter((r) => r.isDecrypted)
+              .map((r) => [r.id, r])
+          );
+          return newRecords.map((newRecord) => {
+            const existing = decryptedMap.get(newRecord.id);
+            if (existing) {
+              return { ...newRecord, ...existing };
+            }
+            return newRecord;
+          });
+        });
+        setGraphData((prevGraphData) => {
+          return newGraphData.map((newData, idx) => {
+            const existing = prevGraphData[idx];
+            if (existing && !existing.encrypted) {
+              return { ...newData, consumption: existing.consumption, encrypted: false };
+            }
+            return newData;
+          });
+        });
       }
     } catch (e) {
       setMessage("Failed to fetch records: " + e);
