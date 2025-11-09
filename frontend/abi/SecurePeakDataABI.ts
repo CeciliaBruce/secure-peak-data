@@ -1,155 +1,274 @@
-// Auto-generated ABI file - will be populated by genabi script after contract compilation
+
+/*
+  This file is auto-generated.
+  Command: 'npm run genabi'
+*/
 export const SecurePeakDataABI = {
-  abi: [
+  "abi": [
     {
-      inputs: [],
-      name: "getRecordCount",
-      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "address", name: "user", type: "address" }],
-      name: "getUserRecordIds",
-      outputs: [{ internalType: "uint256[]", name: "", type: "uint256[]" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "recordId", type: "uint256" }],
-      name: "getRecordConsumption",
-      outputs: [{ internalType: "euint32", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "recordId", type: "uint256" }],
-      name: "getRecordIsPeak",
-      outputs: [{ internalType: "ebool", name: "", type: "uint256" }],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [{ internalType: "uint256", name: "recordId", type: "uint256" }],
-      name: "getRecordMetadata",
-      outputs: [
-        { internalType: "uint256", name: "timestamp", type: "uint256" },
-        { internalType: "address", name: "submitter", type: "address" },
-        { internalType: "bool", name: "exists", type: "bool" },
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "submitter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      stateMutability: "view",
-      type: "function",
+      "name": "RecordCreated",
+      "type": "event"
     },
     {
-      inputs: [
+      "anonymous": false,
+      "inputs": [
         {
-          internalType: "externalEuint32",
-          name: "encryptedConsumption",
-          type: "bytes32",
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
         },
-        { internalType: "bytes", name: "consumptionProof", type: "bytes" },
         {
-          internalType: "externalEuint32",
-          name: "encryptedIsPeak",
-          type: "bytes32",
+          "indexed": true,
+          "internalType": "address",
+          "name": "updater",
+          "type": "address"
         },
-        { internalType: "bytes", name: "isPeakProof", type: "bytes" },
-        { internalType: "uint256", name: "userTimestamp", type: "uint256" },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
       ],
-      name: "createRecord",
-      outputs: [{ internalType: "uint256", name: "recordId", type: "uint256" }],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "RecordUpdated",
+      "type": "event"
     },
     {
-      inputs: [
-        { internalType: "uint256", name: "recordId", type: "uint256" },
+      "inputs": [
         {
-          internalType: "externalEuint32",
-          name: "encryptedConsumption",
-          type: "bytes32",
+          "internalType": "externalEuint32",
+          "name": "encryptedConsumption",
+          "type": "bytes32"
         },
-        { internalType: "bytes", name: "consumptionProof", type: "bytes" },
+        {
+          "internalType": "bytes",
+          "name": "consumptionProof",
+          "type": "bytes"
+        },
+        {
+          "internalType": "externalEuint32",
+          "name": "encryptedIsPeak",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "isPeakProof",
+          "type": "bytes"
+        },
+        {
+          "internalType": "uint256",
+          "name": "userTimestamp",
+          "type": "uint256"
+        }
       ],
-      name: "updateConsumption",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "createRecord",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
-      inputs: [
-        { internalType: "uint256", name: "recordId", type: "uint256" },
+      "inputs": [
         {
-          internalType: "externalEuint32",
-          name: "encryptedIsPeak",
-          type: "bytes32",
-        },
-        { internalType: "bytes", name: "isPeakProof", type: "bytes" },
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        }
       ],
-      name: "updateIsPeak",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "name": "getRecordConsumption",
+      "outputs": [
+        {
+          "internalType": "euint32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      inputs: [
-        { internalType: "uint256", name: "recordId", type: "uint256" },
-        { internalType: "address", name: "auditor", type: "address" },
+      "inputs": [],
+      "name": "getRecordCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
       ],
-      name: "grantAccess",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "inputs": [
         {
-          indexed: true,
-          internalType: "uint256",
-          name: "recordId",
-          type: "uint256",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "submitter",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        }
       ],
-      name: "RecordCreated",
-      type: "event",
+      "name": "getRecordIsPeak",
+      "outputs": [
+        {
+          "internalType": "ebool",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
     {
-      anonymous: false,
-      inputs: [
+      "inputs": [
         {
-          indexed: true,
-          internalType: "uint256",
-          name: "recordId",
-          type: "uint256",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "updater",
-          type: "address",
-        },
-        {
-          indexed: false,
-          internalType: "uint256",
-          name: "timestamp",
-          type: "uint256",
-        },
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        }
       ],
-      name: "RecordUpdated",
-      type: "event",
+      "name": "getRecordMetadata",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "submitter",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
     },
-  ],
-};
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        }
+      ],
+      "name": "getUserRecordIds",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "auditor",
+          "type": "address"
+        }
+      ],
+      "name": "grantAccess",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "protocolId",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "externalEuint32",
+          "name": "encryptedConsumption",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "consumptionProof",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateConsumption",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "recordId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "externalEuint32",
+          "name": "encryptedIsPeak",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes",
+          "name": "isPeakProof",
+          "type": "bytes"
+        }
+      ],
+      "name": "updateIsPeak",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+} as const;
