@@ -78,7 +78,7 @@ export default function Home() {
       }
 
       try {
-        await createRecord(entry.consumption, entry.peak);
+        await createRecord(entry.consumption, entry.peak, entry.timestamp);
         toast({
           title: "Entry Created",
           description: "Consumption record has been added to the blockchain",
