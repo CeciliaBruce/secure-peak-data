@@ -89,12 +89,14 @@ contract SecurePeakData is SepoliaConfig {
     /// @param consumptionProof The proof for consumption value
     /// @param encryptedIsPeak The encrypted peak indicator
     /// @param isPeakProof The proof for peak indicator
+    /// @param userTimestamp The user-provided timestamp for the record
     /// @return recordId The ID of the newly created record
     function createRecord(
         externalEuint32 encryptedConsumption,
         bytes calldata consumptionProof,
         externalEuint32 encryptedIsPeak,
-        bytes calldata isPeakProof
+        bytes calldata isPeakProof,
+        uint256 userTimestamp
     ) external returns (uint256 recordId) {
         // Decrypt and validate inputs
         euint32 consumption = FHE.fromExternal(encryptedConsumption, consumptionProof);
@@ -103,6 +105,9 @@ contract SecurePeakData is SepoliaConfig {
         // Convert isPeak to ebool (0 = false, non-zero = true)
         ebool isPeak = FHE.ne(isPeakValue, FHE.asEuint32(0));
 
+        // Use user-provided timestamp, or block.timestamp if 0
+        uint256 recordTimestamp = userTimestamp > 0 ? userTimestamp : block.timestamp;
+
         // Create new record
         recordId = _recordCount;
         _recordCount++;
@@ -110,7 +115,7 @@ contract SecurePeakData is SepoliaConfig {
         _records[recordId] = EncryptedRecord({
             consumption: consumption,
             isPeak: isPeak,
-            timestamp: block.timestamp,
+            timestamp: recordTimestamp,
             submitter: msg.sender,
             exists: true
         });
@@ -123,7 +128,7 @@ contract SecurePeakData is SepoliaConfig {
         FHE.allowThis(isPeak);
         FHE.allow(isPeak, msg.sender);
 
-        emit RecordCreated(recordId, msg.sender, block.timestamp);
+        emit RecordCreated(recordId, msg.sender, recordTimestamp);
     }
 
     /// @notice Updates an existing record's consumption value

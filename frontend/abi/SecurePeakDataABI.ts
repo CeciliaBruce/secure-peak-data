@@ -54,6 +54,7 @@ export const SecurePeakDataABI = {
           type: "bytes32",
         },
         { internalType: "bytes", name: "isPeakProof", type: "bytes" },
+        { internalType: "uint256", name: "userTimestamp", type: "uint256" },
       ],
       name: "createRecord",
       outputs: [{ internalType: "uint256", name: "recordId", type: "uint256" }],
