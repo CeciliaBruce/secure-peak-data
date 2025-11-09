@@ -10,6 +10,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +24,13 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+
+// Generate arrays for dropdowns
+const years = Array.from({ length: 10 }, (_, i) => 2020 + i);
+const months = Array.from({ length: 12 }, (_, i) => i + 1);
+const days = Array.from({ length: 31 }, (_, i) => i + 1);
+const hours = Array.from({ length: 24 }, (_, i) => i);
+const minutes = Array.from({ length: 60 }, (_, i) => i);
 
 interface CreateEntryDialogProps {
   onCreateEntry: (entry: {
@@ -35,8 +49,11 @@ const CreateEntryDialog = ({
 }: CreateEntryDialogProps) => {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    date: "",
-    time: "",
+    year: "2025",
+    month: "11",
+    day: "9",
+    hour: "12",
+    minute: "00",
     consumption: "",
     peak: false,
     reason: "",
@@ -46,7 +63,7 @@ const CreateEntryDialog = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.date || !formData.time || !formData.consumption || !formData.reason) {
+    if (!formData.consumption || !formData.reason) {
       toast({
         title: "Error",
         description: "Please fill in all required fields",
@@ -56,7 +73,8 @@ const CreateEntryDialog = ({
     }
 
     // Combine date and time into timestamp
-    const timestamp = `${formData.date}T${formData.time}`;
+    const pad = (n: string | number) => String(n).padStart(2, "0");
+    const timestamp = `${formData.year}-${pad(formData.month)}-${pad(formData.day)}T${pad(formData.hour)}:${pad(formData.minute)}`;
 
     onCreateEntry({
       timestamp,
@@ -67,8 +85,11 @@ const CreateEntryDialog = ({
     });
 
     setFormData({
-      date: "",
-      time: "",
+      year: "2025",
+      month: "11",
+      day: "9",
+      hour: "12",
+      minute: "00",
       consumption: "",
       peak: false,
       reason: "",
@@ -94,30 +115,100 @@ const CreateEntryDialog = ({
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="date">Date *</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) =>
-                    setFormData({ ...formData, date: e.target.value })
+            <div className="space-y-2">
+              <Label>Date *</Label>
+              <div className="grid grid-cols-3 gap-2">
+                <Select
+                  value={formData.year}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, year: value })
                   }
-                  required
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Year" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {years.map((y) => (
+                      <SelectItem key={y} value={String(y)}>
+                        {y}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select
+                  value={formData.month}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, month: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Month" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {months.map((m) => (
+                      <SelectItem key={m} value={String(m)}>
+                        {String(m).padStart(2, "0")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select
+                  value={formData.day}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, day: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Day" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {days.map((d) => (
+                      <SelectItem key={d} value={String(d)}>
+                        {String(d).padStart(2, "0")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="time">Time *</Label>
-                <Input
-                  id="time"
-                  type="time"
-                  value={formData.time}
-                  onChange={(e) =>
-                    setFormData({ ...formData, time: e.target.value })
+            </div>
+
+            <div className="space-y-2">
+              <Label>Time *</Label>
+              <div className="grid grid-cols-2 gap-2">
+                <Select
+                  value={formData.hour}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, hour: value })
                   }
-                  required
-                />
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Hour" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {hours.map((h) => (
+                      <SelectItem key={h} value={String(h)}>
+                        {String(h).padStart(2, "0")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select
+                  value={formData.minute}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, minute: value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Minute" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {minutes.map((m) => (
+                      <SelectItem key={m} value={String(m)}>
+                        {String(m).padStart(2, "0")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
