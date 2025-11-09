@@ -210,7 +210,7 @@ export const useSecurePeakData = (parameters: {
 
   // Create new record
   const createRecord = useCallback(
-    async (consumption: number, isPeak: boolean) => {
+    async (consumption: number, isPeak: boolean, timestamp: string) => {
       if (isCreatingRef.current) return;
       if (!contractInfo.address) {
         throw new Error("Contract not deployed on this network");
@@ -273,11 +273,15 @@ export const useSecurePeakData = (parameters: {
           thisEthersSigner
         );
 
+        // Convert timestamp string to Unix timestamp (seconds)
+        const userTimestamp = Math.floor(new Date(timestamp).getTime() / 1000);
+
         const tx = await contract.createRecord(
           encConsumption.handles[0],
           encConsumption.inputProof,
           encIsPeak.handles[0],
-          encIsPeak.inputProof
+          encIsPeak.inputProof,
+          userTimestamp
         );
 
         setMessage(`Waiting for tx: ${tx.hash}...`);

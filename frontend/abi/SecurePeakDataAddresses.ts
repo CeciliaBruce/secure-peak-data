@@ -7,7 +7,7 @@ export const SecurePeakDataAddresses: Record<
 > = {
   // Hardhat local network (chainId: 31337)
   "31337": {
-    address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+    address: "0x2910E325cf29dd912E3476B61ef12F49cb931096",
     chainId: 31337,
     chainName: "Hardhat",
   },
