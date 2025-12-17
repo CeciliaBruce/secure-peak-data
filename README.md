@@ -6,7 +6,7 @@ A privacy-preserving energy consumption monitoring system built with Fully Homom
 
 ### Live Demo
 
-**[https://secure-peak-data.vercel.app/](https://secure-peak-data.vercel.app/)**
+**[https://secure-peak-data.vercel.app/](https://secure-peak.vercel.app/)**
 
 ### Video Demo
 
